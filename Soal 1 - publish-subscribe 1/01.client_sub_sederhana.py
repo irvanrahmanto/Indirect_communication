@@ -34,18 +34,20 @@ client.on_message = on_message
 
 # buat koneksi ke broker
 print("connecting to broker")
-# client.connect(broker_address, port=465)
-client.connect(broker_address, port=3333)
+# client.connect(broker_address, port=3333)
+client.connect(broker_address)
 
 # jalankan loop client
 client.loop_start()
 
 # client melakukan subsribe ke topik 1
-print("Subscribing to topic", "house/bulbs/bulbl")
+print("Subscribing to topic", "waktu")
+client.subscribe("waktu")
 
 # loop forever
 while True:
     # berikan waktu tunggu 1 detik
     time.sleep(1)
+
     # stop loop
 client.loop_stop()

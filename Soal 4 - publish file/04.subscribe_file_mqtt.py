@@ -11,23 +11,29 @@ import time
 
 def on_message(client, userdata, message):
     # tulis hasil file yang didapat bernama "iris.jpg"
-
+    with open("iris.jpg", "wb") as x:
+        x.write(message.payload)
+        x.close()
+        print("Downloaded")
     ##########################################
 
-    # definisikan broker yang akan digunakan
 
+# definisikan broker yang akan digunakan
+broker_address = "127.0.0.1"
 
-    # buat client P2
+# buat client P2
 print("creating new instance")
 client = mqtt.Client("P1")
+client.on_message = on_message
 
 # koneksi P2 ke broker
 print("connecting to broker")
-client.connect(broker_address, port=3333)
+client.connect(broker_address)
 
 # P2 subcribe ke topik "photo"
 print("Subscribing to topic", "photo")
-
+client.loop_start()
+client.subscribe("poto")
 
 # callback diaktifkan
 
@@ -36,3 +42,6 @@ print("Subscribing to topic", "photo")
 while True:
     client.loop(15)
     time.sleep(2)
+
+# stop loop
+client.loop_stop()

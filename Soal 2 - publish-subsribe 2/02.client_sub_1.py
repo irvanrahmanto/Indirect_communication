@@ -14,10 +14,11 @@ def on_message(client, userdata, message):
     print("message received ", str(message.payload.decode("utf-8")))
     ########################################
 
-    # buat definisi nama broker yang akan digunakan
-    broker_address = "localhost"
 
-    # buat client baru bernama P1
+# buat definisi nama broker yang akan digunakan
+broker_address = "127.0.0.1"
+
+# buat client baru bernama P1
 print("creating new instance")
 client = mqtt.Client("P1")
 
@@ -26,14 +27,15 @@ client.on_message = on_message
 
 # buat koneksi ke broker
 print("connecting to broker")
-
+client.connect(broker_address)
 
 # jalankan loop client
 client.loop_start()
 
 # client melakukan subsribe ke topik 1 dan topik 2
 print("Subscribing to topic")
-
+client.subscribe("topik_1")
+client.subscribe("topik_2")
 
 # loop forever
 while True:
