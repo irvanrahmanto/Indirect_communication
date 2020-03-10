@@ -23,12 +23,13 @@ fileContent = my_file.read()
 
 # ubah file dalam bentuk byte gunakan fungsi byte()
 byteArr = bytes(fileContent)
-client.publish("poto", byteArr)
+# client.publish("photo", byteArr)
 # publish dengan topik photo dan data dipublish adalah file
 print("publish foto")
-
+client.publish("photo", byteArr)
 
 # client loop mulai
-client.loop_stop()
+client.loop_start()
 
 # tutup file
+my_file.close()
